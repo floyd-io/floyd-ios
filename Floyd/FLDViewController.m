@@ -13,7 +13,11 @@
 
 
 @interface FLDViewController ()
+
 @property (nonatomic, strong) NSMutableData *responseData;
+@property (weak, nonatomic) IBOutlet UITextField *ipTextField;
+
+
 
 @end
 
@@ -50,6 +54,19 @@
 }
 // ~Usando Streams/Sockets
 
+- (IBAction)connectAction:(id)sender {
+    NSString *ipString = self.ipTextField.text;
+    NSString *urlString = [NSString stringWithFormat:@"http://%@:1337/part2.html", ipString];
+    
+    NSLog(urlString);
+    
+    self.chunkConnection = [SCVChunkURLConnection new];
+    self.chunkConnection.delegate = self;
+    
+    [self.chunkConnection openWithURL:[NSURL URLWithString:urlString]];
+    
+    [self.view endEditing:YES];
+}
 
 -(void)chunkURLConnection:(SCVChunkURLConnection *)connection didReceiveChunk:(NSData *)data{
     NSString *chunk = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
@@ -76,18 +93,8 @@
     [super viewDidLoad];
     NSLog(@"viewdidload");
     
-    //NSURL *nsUrl = [[init alloc]
-    NSURL *nsUrl = [NSURL URLWithString:@"http://127.0.0.1:1337/part2.html"];
-    
-    self.chunkConnection = [SCVChunkURLConnection new];
-    self.chunkConnection.delegate = self;
-    
-    [self.chunkConnection openWithURL:[NSURL URLWithString:@"http://localhost:1337/part2.html"]];
-    
     
 
-    
-    
     //Usando NSURLConnection
     /*
     self.responseData = [NSMutableData data];
