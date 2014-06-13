@@ -58,8 +58,6 @@
     NSString *ipString = self.ipTextField.text;
     NSString *urlString = [NSString stringWithFormat:@"http://%@:1337/part2.html", ipString];
     
-    NSLog(urlString);
-    
     self.chunkConnection = [SCVChunkURLConnection new];
     self.chunkConnection.delegate = self;
     
@@ -319,6 +317,22 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark UITextFieldDelegate implementation
+
+- (void) textFieldDidEndEditing:(UITextField *)textField
+{
+    if ([textField isFirstResponder]) {
+        [textField resignFirstResponder];
+    }
+}
+
+#pragma mark Touch Handling
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [self.view endEditing:YES];
 }
 
 @end

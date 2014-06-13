@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "SCVChunkURLConnection.h"
 
-@interface FLDViewController : UIViewController <NSStreamDelegate, SCVChunkURLConnectionDelegate>
+@interface FLDViewController : UIViewController <NSStreamDelegate, SCVChunkURLConnectionDelegate, UITextFieldDelegate>
 
 @property (nonatomic,strong) IBOutlet UILabel *titulo;
 @property (nonatomic,strong) NSMutableData *receivedData;
